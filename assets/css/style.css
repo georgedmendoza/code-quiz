@@ -27,9 +27,6 @@
 }
 
 .btn{
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     background: #493082 ;
     pointer-events: none;
     font-size: medium;
@@ -42,31 +39,69 @@
     display: none;
 }
 
+
+/* displys container for score at last page */
 #score-div {
     display: none;
-}
-
-.score-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height:800px;
-    width: 100%;
     flex-wrap: wrap;
-    background: yellow;
-}
-
-.score{
-    display: flex;
     justify-content: center;
     align-items: center;
-    border: black;
-    height: 20px;
+}
+.score{
+    display: flex;
+    align-items: center;
+    margin: 2%;
+}
+.btn1{
+    background: #493082;
+    font-size: medium;
+    color: #fcfcfc;
+}
+.score-container span{
+    font-size: medium;
+}
+
+/* container for question section */
+.question-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* style for question title */
+.question-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    width: 100%;
+    flex-wrap: wrap;
+}
+/* timer */
+.time{
+    background: green;
+    display: flex;
+    width: -webkit-fill-available;
+    justify-content: center;
+    font-weight: inherit;
 }
 
 /* sytle for the multiple choice */
 .choices{
-    display: flex;
+    display: block;
     flex-wrap: wrap;
-    background: yellow;
+    background: #493082;
+    color: #fcfcfc;
+    font-size: x-large;
+    border-radius: 5px;
+}
+
+.done{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    font-size: xx-large;
+    margin: 5% auto;
 }

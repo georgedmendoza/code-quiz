@@ -1,9 +1,4 @@
-var timer = 60000;
-
-//var quizSection = document.querySelector("#quiz");
-// var optionsEl = document.querySelector("#options");
-// var submitEl = document.querySelector("#button");
-
+var timerEl = document.querySelector("#timer");
 
 var startQuizEl = document.querySelector("#quiz");
 var questionsEl = document.querySelector("#question-div");
@@ -17,27 +12,27 @@ var questionIndex = 0;
 var arrayQuestions = [
 {
     question: "Commonly used data types DO Not Include?",
-    options: ["strings","booleans","alerts","numbers"],
+    options: ["1. strings","2. booleans","3.alerts","4.numbers"],
     answer: 2
 },
 {
     question: "Which type of variable is visible only withing a function where it is defined?",
-    options: ["global variable","local variable","both of the above","none of the above"],
+    options: ["1. global variable","2. local variable","3.both of the above","4.none of the above"],
     answer: 1 
 },
 {
     question: "Which built-in method returns the calling string value converted to lower case?",
-    options: ["toLowerCase()","toLower()","changeCase(case)","None of the above"],
+    options: ["1. toLowerCase()","2. toLower()","3.changeCase(case)","4.None of the above"],
     answer: 0
 },
 {
     question: "Which of the following function of String object splits a String object into an array of strings by separating the string into substrings?",
-    options: ["slice()","split()","replace()","search()"],
+    options: ["1. slice()","2. split()","3.replace()","4.search()"],
     answer: 1
 },
 {
     question: "Which of the following function of Array object sorts the elements of an array",
-    options: ["toSource()","sort()","toString()","unshift()"],
+    options: ["1. toSource()","2. sort()","3.toString()","4.unshift()"],
     answer: 1
 }  
 ]
@@ -47,12 +42,22 @@ var startQuiz = function() {
     questionsEl.style.display = "flex";
     questionIndex = 0;
 
+    //calls updatTimer function
+    updateTime();
     //calls function to start displaying first question
     getQuestion();
 };
 
 //update time when answer is incorrect
 var updateTime = function() {
+    var timer = 60;
+    timerEl = timer;
+    if(timerEl > 0) {
+        timer -= timer - 10;
+    }
+    else{
+        endQuiz();
+    }
 
 };
 
@@ -60,11 +65,11 @@ var updateTime = function() {
 var endQuiz = function() {
     console.log("end")
     //stop timer
+     //hide div
+     questionsEl.style.display = "none"
     //show div for score
-    // score.style.display = "block";
-    // score.style.background = "red";
-    //hide div
-    questionsEl.style.display = "none"
+    score.style.display = "flex";
+   
 };
 
 
@@ -76,7 +81,7 @@ var getQuestion = function() {
     var options = arrayQuestions[questionIndex].options;
     questionTitle.textContent = question;
     //given class to the question text
-    questionTitle.className = "head";
+    questionTitle.className = "question-title";
 
     
     //makes sure not all multiple choice options are displayed
@@ -110,11 +115,12 @@ var checkAnswer = function(event) {
     }
     else if(arrayQuestions[questionIndex].answer != answerId) {
         //subtract 10s from timer
+        updateTime();
         //add 1 to the questionIndex
-        
         questionIndex++;
         console.log("wrong");
         getQuestion();
+        
     };
 
 };
