@@ -1,5 +1,6 @@
 var timerEl = document.querySelector("#timer");
 
+var endButton = document.querySelector("#end");
 var startQuizEl = document.querySelector("#quiz");
 var questionsEl = document.querySelector("#question-div");
 //quiz questions captured
@@ -41,7 +42,7 @@ var startQuiz = function() {
     startQuizEl.style.display = "none";
     questionsEl.style.display = "flex";
     questionIndex = 0;
-
+   
     //calls updatTimer function
     updateTime();
     //calls function to start displaying first question
@@ -50,10 +51,11 @@ var startQuiz = function() {
 
 //update time when answer is incorrect
 var updateTime = function() {
-    var timer = 60;
-    timerEl = timer;
-    if(timerEl > 0) {
-        timer -= timer - 10;
+    var timeLeft = 70;
+
+    if(timeLeft > 0) {
+        timeLeft = timeLeft - 10;
+        timerEl.textContent = timeLeft
     }
     else{
         endQuiz();
@@ -69,9 +71,8 @@ var endQuiz = function() {
      questionsEl.style.display = "none"
     //show div for score
     score.style.display = "flex";
-   
+    
 };
-
 
 
 
@@ -114,15 +115,22 @@ var checkAnswer = function(event) {
         getQuestion()
     }
     else if(arrayQuestions[questionIndex].answer != answerId) {
-        //subtract 10s from timer
-        updateTime();
+       
         //add 1 to the questionIndex
         questionIndex++;
         console.log("wrong");
         getQuestion();
+        //subtract 10s from timer
+        updateTime();
         
     };
 
 };
 
 startQuizEl.addEventListener("click",startQuiz);
+endButton.addEventListener("click",function(event) {
+    event.preventDefault();
+    var initials = document.querySelector("#submit-button").value;
+    localStorage.setItem("score",initials)
+    
+})
