@@ -1,9 +1,18 @@
 var timer = 60000;
 
-var quizSection = document.querySelector("#quiz");
-var titleEl = document.querySelector("#title");
-var questionEl = document.querySelector("#question");
-var optionsEl = document.querySelector("#options");
+//var quizSection = document.querySelector("#quiz");
+// var optionsEl = document.querySelector("#options");
+// var submitEl = document.querySelector("#button");
+
+
+var startQuizEl = document.querySelector("#quiz");
+var questionsEl = document.querySelector("#question-div");
+//quiz questions captured
+var questionTitle = document.querySelector("#question-content");
+var answersEl = document.querySelector("#answers");
+var ulAnswers = document.querySelector("#ulAnswers");
+var score = document.querySelector("#score-div");
+var questionIndex = 0;
 
 var arrayQuestions = [
 {
@@ -33,30 +42,81 @@ var arrayQuestions = [
 }  
 ]
 
+var startQuiz = function() {
+    startQuizEl.style.display = "none";
+    questionsEl.style.display = "flex";
+    questionIndex = 0;
+
+    //calls function to start displaying first question
+    getQuestion();
+};
+
 //update time when answer is incorrect
 var updateTime = function() {
 
-}
+};
+
+//displays end of quiz and accepts input from user to record score
+var endQuiz = function() {
+    console.log("end")
+    //stop timer
+    //show div for score
+    // score.style.display = "block";
+    // score.style.background = "red";
+    //hide div
+    questionsEl.style.display = "none"
+};
+
+
+
 
 //create quiz
-var createQuiz = function() {
+var getQuestion = function() {
+    var question = arrayQuestions[questionIndex].question;
+    var options = arrayQuestions[questionIndex].options;
+    questionTitle.textContent = question;
+    //given class to the question text
+    questionTitle.className = "head";
 
-}
-
-//new function to compare user choice with actual answer
-
-var newFunc = function() {
     
-}
+    //makes sure not all multiple choice options are displayed
+    ulAnswers.innerHTML = "";
+    //create new element for the question to be displayed and options
+    for (var i=0; i<options.length; i++) {
+        var li = document.createElement("li");
+        //each li will have an index
+        li.setAttribute("id",i);
+        li.style.margin = "20px";
+        li.textContent = options[i];
+        ulAnswers.appendChild(li);
+        li.style.listStyle = "none";
+        li.className = "choices"
+        li.addEventListener("click",checkAnswer);
+    };
+};
 
-// var createQuiz = function() {
-//     var askQuestion = [];
-//     var correctAnswer = [];
-//     for(var i=0; i<arrayQuestions.length; i++) {
-//         var question = arrayQuestions[i].question
-//         correctAnswer.innerHtml = "<label> <input type='radio' name='question'>"
-//         console.log(question)
-//     };
-// };
+var checkAnswer = function(event) {
+    console.log(event.target.id);
+    var answerId = event.target.id;
+    if(questionIndex >= arrayQuestions.length){
+        //subtract 10s from timer
+        return endQuiz();
+    }
+    else if(arrayQuestions[questionIndex].answer == answerId) {
+        
+        questionIndex++;
+        console.log("correct");
+        getQuestion()
+    }
+    else if(arrayQuestions[questionIndex].answer != answerId) {
+        //subtract 10s from timer
+        //add 1 to the questionIndex
+        
+        questionIndex++;
+        console.log("wrong");
+        getQuestion();
+    };
 
-startEl.addEventListener("click",createQuiz());
+};
+
+startQuizEl.addEventListener("click",startQuiz);

@@ -9,43 +9,54 @@
     </head>
 
     <body>
+        <!--first page displayed-->
         <section class="container" id="quiz">
-
-        
         
             <div class="head" id="title">
-                HEAD
+                Coding Quiz Challenge
             </div>
+
             <p class="text" id="paragraph">
-                Some text here
+                Try to answer the following code-related questions within the time limit.
+                Keep in mind that incorrect answers will penalize your score/time
+                by ten secons!
             </p>
+
             <button class="btn" id="button">
                 Start Quiz
             </button>
-            <!-- <input type="button" name="" id="scores" class="btn"> -->
-            <div class="head" id="question">  
-                <!--THIS IS WHERE THE QUESTION WILL NEED TO BE APPENDED-->
+           
+        </section>
+
+        <section id="question-div">
+            <!--wher questions will go-->
+            <h2 id="question-content">
+                
+            </h2>
+                
+            <!--where multiple choice answers will be-->
+            <div class="answer-div" id="answers">
+                <ul id="ulAnswers">
+
+                </ul>
             </div>
 
-            <div class="btn" id="options">
-                <!--THIS IS WHERE THE OPTIONS NEED TO BE APPENDED TO -->
-            </div>
+            <!--change message to display correct or incorrect based on answer
+            with inner html text content-->
+            <span id="correct"></span>
 
         </section>
 
-        <!-- <div class="container">
-            <h1 class="head">
-                Coding Quiz Challenge
-            </h1>
-            <p class="text">
-                Try to answer the following code-realted questions within the time limit.
-                Keep in mind that incorret answeres will penalize your score/time
-                by ten seconds!
-            </p>
-            <button class="btn" id="start-btn">Start Quiz</button>
-        </div>
-        <span id="timer">Time Remaning</span> -->
+        <section class="score-cantainer" id="score-div">
+            <div class="head" id="title">
+                ALL DONE!
+            </div>
+            <!--text input to accept initials-->
+            <input type="text" class="score" id="submit-button">
+            <!--button to submit score-->
+            <button class="btn">Submit</button>
 
+        </section>
 
         <script src="./assets/js/script.js"></script>
     </body>
