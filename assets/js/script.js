@@ -79,6 +79,7 @@ var endQuiz = function() {
 //create quiz
 var getQuestion = function() {
     var question = arrayQuestions[questionIndex].question;
+    // console.log()
     var options = arrayQuestions[questionIndex].options;
     questionTitle.textContent = question;
     //given class to the question text
@@ -87,6 +88,7 @@ var getQuestion = function() {
     
     //makes sure not all multiple choice options are displayed
     ulAnswers.innerHTML = "";
+
     //create new element for the question to be displayed and options
     for (var i=0; i<options.length; i++) {
         var li = document.createElement("li");
@@ -99,31 +101,38 @@ var getQuestion = function() {
         li.className = "choices"
         li.addEventListener("click",checkAnswer);
     };
+    
 };
 
 var checkAnswer = function(event) {
+    console.log("asasdf",questionIndex, (questionIndex==arrayQuestions.length))
     console.log(event.target.id);
     var answerId = event.target.id;
-    if(questionIndex >= arrayQuestions.length){
+    if(questionIndex >= arrayQuestions.length-1){
         //subtract 10s from timer
+        console.log("HHHHHHHHHHHHHHHHHHHHHHSSSSSSSSSSSS")
         return endQuiz();
     }
     else if(arrayQuestions[questionIndex].answer == answerId) {
-        
-        questionIndex++;
-        console.log("correct");
-        getQuestion()
+        if(questionIndex < arrayQuestions.length){
+            questionIndex++;
+            console.log("correct");
+            
+            getQuestion()
+        }
     }
     else if(arrayQuestions[questionIndex].answer != answerId) {
        
-        //add 1 to the questionIndex
-        questionIndex++;
-        console.log("wrong");
-        getQuestion();
-        //subtract 10s from timer
-        updateTime();
+        if(questionIndex < arrayQuestions.length) {
+            //add 1 to the questionIndex
+            questionIndex++;
+            console.log("wrong");
+            getQuestion();
+            //subtract 10s from timer
+            updateTime();
         
-    };
+        };
+    }
 
 };
 
