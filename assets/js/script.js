@@ -1,5 +1,8 @@
 var timerEl = document.querySelector("#timer");
 
+var timeLeft = 20;
+
+
 var endButton = document.querySelector("#end");
 var startQuizEl = document.querySelector("#quiz");
 var questionsEl = document.querySelector("#question-div");
@@ -8,6 +11,7 @@ var questionTitle = document.querySelector("#question-content");
 var answersEl = document.querySelector("#answers");
 var ulAnswers = document.querySelector("#ulAnswers");
 var score = document.querySelector("#score-div");
+var check = document.querySelector("#check");
 var questionIndex = 0;
 
 var arrayQuestions = [
@@ -43,25 +47,46 @@ var startQuiz = function() {
     questionsEl.style.display = "flex";
     questionIndex = 0;
    
-    //calls updatTimer function
-    updateTime();
+    //starts the timer for the user
+    initialTime();
     //calls function to start displaying first question
     getQuestion();
 };
 
 //update time when answer is incorrect
-var updateTime = function() {
-    var timeLeft = 70;
 
-    if(timeLeft > 0) {
-        timeLeft = timeLeft - 10;
-        timerEl.textContent = timeLeft
-    }
-    else{
-        endQuiz();
-    }
+var initialTime = function() {
+    timerEl.textContent = timeLeft;
+    var countDown = setInterval(function() { 
+        timeLeft = timeLeft - 1;
+        timerEl.textContent = timeLeft;
 
+    // if(timeLeft <= 0) {
+    //     clearInterval(initialTime);
+    //     endQuiz();
+    // }
+    
+
+    },1000);
 };
+
+var updateTime = function() {
+    var count = setInterval( function() {
+        timerEl = initialTime() - 10;
+    },1000);
+};
+
+
+// var updateTime = setInterval( function() {
+//     if(newTime> 0){
+//         newTime = newTime - 1;
+//         timerEl.textContent = newTime
+//     };
+    
+//     if(newTime<=0) {
+//         endQuiz();
+//     }
+// },1000)
 
 //displays end of quiz and accepts input from user to record score
 var endQuiz = function() {
@@ -117,8 +142,9 @@ var checkAnswer = function(event) {
         if(questionIndex < arrayQuestions.length){
             questionIndex++;
             console.log("correct");
-            
-            getQuestion()
+            check.textContent = "Correct";
+            check.style.background = "green";
+            getQuestion();
         }
     }
     else if(arrayQuestions[questionIndex].answer != answerId) {
@@ -127,14 +153,17 @@ var checkAnswer = function(event) {
             //add 1 to the questionIndex
             questionIndex++;
             console.log("wrong");
+            check.textContent = "Wrong";
+            check.style.background = "red";
             getQuestion();
             //subtract 10s from timer
-            updateTime();
+            
         
         };
     }
 
 };
+
 
 startQuizEl.addEventListener("click",startQuiz);
 endButton.addEventListener("click",function(event) {

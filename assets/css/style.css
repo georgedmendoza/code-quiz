@@ -88,12 +88,18 @@
 
 /* sytle for the multiple choice */
 .choices{
-    display: block;
+    display: flex;
     flex-wrap: wrap;
     background: #493082;
     color: #fcfcfc;
     font-size: x-large;
     border-radius: 5px;
+}
+#check{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: x-large;
+    margin-left: 15px;
 }
 
 .done{
