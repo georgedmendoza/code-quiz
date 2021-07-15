@@ -1,8 +1,8 @@
 var timerEl = document.querySelector("#timer");
+var randomList = [];
+// var timeLeft = 90;
 
-var timeLeft = 20;
-
-
+var points = 0;
 var endButton = document.querySelector("#end");
 var startQuizEl = document.querySelector("#quiz");
 var questionsEl = document.querySelector("#question-div");
@@ -12,6 +12,7 @@ var answersEl = document.querySelector("#answers");
 var ulAnswers = document.querySelector("#ulAnswers");
 var score = document.querySelector("#score-div");
 var check = document.querySelector("#check");
+var scoreTitle = document.querySelector("#title-score");
 var questionIndex = 0;
 
 var arrayQuestions = [
@@ -48,7 +49,9 @@ var startQuiz = function() {
     questionIndex = 0;
    
     //starts the timer for the user
-    initialTime();
+
+    // initialTime();
+
     //calls function to start displaying first question
     getQuestion();
 };
@@ -96,8 +99,26 @@ var endQuiz = function() {
      questionsEl.style.display = "none"
     //show div for score
     score.style.display = "flex";
-    
+    score.style.justifyContent = "center";
+    score.style.alignItems = "center"; 
 };
+
+var loadTasks = function () {
+    for (var i = 0; i < localStorage.length; i++) {
+    // set iteration key name
+    var key = localStorage.key(i);
+    // use key name to retrieve the corresponding value
+    var value = localStorage.getItem(key);
+   
+    var title = document.querySelector("#head-title");
+    title.textContent = "Scores";
+    var names = document.createElement("li");
+    names.className = "list"
+    names.textContent = key + ": " + value;
+    names.fontSize = 'small';
+    scoreTitle.appendChild(names);
+  }
+}
 
 
 
@@ -133,6 +154,8 @@ var checkAnswer = function(event) {
     console.log("asasdf",questionIndex, (questionIndex==arrayQuestions.length))
     console.log(event.target.id);
     var answerId = event.target.id;
+    var timeLeft = 90;
+   
     if(questionIndex >= arrayQuestions.length-1){
         //subtract 10s from timer
         console.log("HHHHHHHHHHHHHHHHHHHHHHSSSSSSSSSSSS")
@@ -140,21 +163,61 @@ var checkAnswer = function(event) {
     }
     else if(arrayQuestions[questionIndex].answer == answerId) {
         if(questionIndex < arrayQuestions.length){
+            var initialTime = function() {
+                
+                timerEl.textContent = timeLeft;
+                var countDown = setInterval(function() { 
+                    timeLeft = timeLeft - 1;
+                    timerEl.textContent = timeLeft;
+            
+                // if(timeLeft <= 0) {
+                //     clearInterval(initialTime);
+                //     endQuiz();
+                // }
+                
+            
+                },1000);
+                
+            };
+            
+            initialTime();
+            
+            
             questionIndex++;
             console.log("correct");
             check.textContent = "Correct";
             check.style.background = "green";
+            points = points + 2;
+            console.log("points " + points);
             getQuestion();
         }
     }
     else if(arrayQuestions[questionIndex].answer != answerId) {
        
         if(questionIndex < arrayQuestions.length) {
+            var initialTime = function() {
+                timerEl.textContent = timeLeft;
+                var countDown = setInterval(function() { 
+                    timeLeft = timeLeft - 10;
+                    timerEl.textContent = timeLeft;
+            
+                // if(timeLeft <= 0) {
+                //     clearInterval(initialTime);
+                //     endQuiz();
+                // }
+                
+            
+                },1000);
+            };
+            initialTime();
+            
             //add 1 to the questionIndex
             questionIndex++;
             console.log("wrong");
             check.textContent = "Wrong";
             check.style.background = "red";
+            points = points - 1;
+            console.log("points " +points);
             getQuestion();
             //subtract 10s from timer
             
@@ -165,10 +228,17 @@ var checkAnswer = function(event) {
 };
 
 
+saveTasks = function(){
+    var initials = document.querySelector("#submit-button").value;
+    console.log(initials);
+    localStorage.setItem(initials,points);
+}
+
+
+
 startQuizEl.addEventListener("click",startQuiz);
 endButton.addEventListener("click",function(event) {
-    event.preventDefault();
-    var initials = document.querySelector("#submit-button").value;
-    localStorage.setItem("score",initials)
-    
+    event.preventDefault(); 
+    saveTasks();
+    loadTasks();
 })

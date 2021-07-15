@@ -111,3 +111,22 @@
     font-size: xx-large;
     margin: 5% auto;
 }
+
+.title-score{
+    display: table-row-group;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: bolder;
+    text-align: center;
+}
+.title-score h2{
+    border-bottom: 2px solid black;
+}
+.list{
+    font-size: x-large;
+    font-weight: initial;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 1%;
+}
