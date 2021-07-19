@@ -11,4 +11,4 @@ https://georgedmendoza.github.io/code-quiz/
 
 Below is a screenshot of the website when a the quiz is first opened.
 
-![screenshot](Develop/assets/images/code-quiz-screenshot.png)
+![screenshot](assets/images/code-quiz-screenshot.png)
